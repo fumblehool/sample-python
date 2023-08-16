@@ -2,7 +2,7 @@ name: sample-python
 services:
 - environment_slug: python
   github:
-    branch: main
+    branch: test
     deploy_on_push: true
-    repo: digitalocean/sample-python
+    repo: fumblehool/sample-python
   name: sample-python

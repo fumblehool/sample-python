@@ -3,6 +3,6 @@ spec:
   services:
   - environment_slug: python
     git:
-      branch: main
-      repo_clone_url: https://github.com/digitalocean/sample-python.git
+      branch: test
+      repo_clone_url: https://github.com/fumblehool/sample-python.git
     name: sample-python
