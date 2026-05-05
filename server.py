@@ -21,13 +21,14 @@ print('Listening on port %s' % (port))
 
 
 def continuous_logger(port):
-    """Log server status every 2 seconds"""
+    """Log server status every LOG_INTERVAL seconds"""
     start_time = time.time()
     while True:
         elapsed = int(time.time() - start_time)
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         print(f'[{timestamp}] Server running on port {port} - Uptime: {elapsed}s')
-        time.sleep(2)
+        t = os.environ.get('LOG_INTERVAL', '5')
+        time.sleep(int(t))
 
 
 # Start logging thread as daemon
