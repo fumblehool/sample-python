@@ -1,6 +1,9 @@
 import os
 import http.server
 import socketserver
+import threading
+import time
+from datetime import datetime
 
 from http import HTTPStatus
 
@@ -15,5 +18,21 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 port = int(os.getenv('PORT', 80))
 print('Listening on port %s' % (port))
+
+
+def continuous_logger(port):
+    """Log server status every 2 seconds"""
+    start_time = time.time()
+    while True:
+        elapsed = int(time.time() - start_time)
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print(f'[{timestamp}] Server running on port {port} - Uptime: {elapsed}s')
+        time.sleep(2)
+
+
+# Start logging thread as daemon
+logger_thread = threading.Thread(target=continuous_logger, args=(port,), daemon=True)
+logger_thread.start()
+
 httpd = socketserver.TCPServer(('', port), Handler)
 httpd.serve_forever()
